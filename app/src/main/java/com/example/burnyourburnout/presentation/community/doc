@@ -1,0 +1,27 @@
+
+Entity
+- Post
+    Post(
+        @PK autoGenerate val id: Long = 0,
+        val writer: Long,
+        val title: String
+        val content: String,
+        val createdAt: String
+    )
+
+    Comment(
+        @PK autoGenerate val id: Long = 0,
+        val postId: Long,
+        val writer: Long,
+        val content: String,
+        val createdAt: String
+    )
+
+- Random Message
+    Message(
+        @PK autoGenerate val id: Long = 0,
+        val content: String
+    )
+
+
+

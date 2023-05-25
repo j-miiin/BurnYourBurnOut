@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">BurnYourBurnOut</string>
+
+    <string name="lobby">Lobby</string>
+    <string name="burn_out">Burn-Out</string>
+    <string name="community">Community</string>
+    <string name="try_something_new">Try Something New</string>
+    <string name="private_place">Private Place</string>
+
+    <string name="check_in">Check-In</string>
+    <string name="check_out">Check-Out</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+    <string name="welcome">Welcome</string>
+    <string name="sign_in_text">처음이신가요?</string>
+    <string name="tour_chip">Tour</string>
+    <string name="music_chip">Music</string>
+    <string name="movie_chip">Movie</string>
+    <string name="concert_chip">Concert</string>
 </resources>

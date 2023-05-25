@@ -1,4 +1,21 @@
 package com.example.burnyourburnout
 
-class BurnYourBurnOutApplication {
+import android.app.Application
+//import com.example.burnyourburnout.di.appModule
+//import org.koin.android.ext.koin.androidContext
+//import org.koin.android.ext.koin.androidLogger
+//import org.koin.core.context.startKoin
+//import org.koin.core.logger.Level
+
+class BurnYourBurnOutApplication: Application() {
+
+    override fun onCreate() {
+        super.onCreate()
+
+//        startKoin {
+//            androidLogger(Level.ERROR)
+//            androidContext(this@BurnYourBurnOutApplication)
+//            modules(appModule)
+//        }
+    }
 }
