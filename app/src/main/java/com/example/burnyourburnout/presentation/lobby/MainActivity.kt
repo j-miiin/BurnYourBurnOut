@@ -1,7 +1,8 @@
-package com.example.burnyourburnout
+package com.example.burnyourburnout.presentation.lobby
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.burnyourburnout.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
