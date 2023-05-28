@@ -6,10 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.burnyourburnout.databinding.FragmentPrivatePlaceBinding
+import com.example.burnyourburnout.presentation.BaseFragment
 
-class PrivatePlaceFragment : Fragment() {
+internal class PrivatePlaceFragment : BaseFragment<CalendarViewModel, FragmentPrivatePlaceBinding>() {
 
-    private lateinit var binding: FragmentPrivatePlaceBinding
+    override val viewModel: CalendarViewModel
+        get() = CalendarViewModel()
+
+    override fun getViewBinding(): FragmentPrivatePlaceBinding = FragmentPrivatePlaceBinding.inflate(layoutInflater)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,5 +26,14 @@ class PrivatePlaceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun observeData() {
+        when(it) {
+            is CalendarState.Uninitialized -> initViews()
+            is CalendarState.Loading -> handleLoadingState()
+            is CalendarState.Success -> handleSuccessState()
+            is CalendarState.Error -> handleErrorState()
+        }
     }
 }
