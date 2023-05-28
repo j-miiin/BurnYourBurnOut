@@ -15,7 +15,7 @@
         android:fontFamily="@font/jsongmyung"
         android:text="@string/private_place"
         android:textColor="@color/main_green"
-        android:textSize="36sp"
+        android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
