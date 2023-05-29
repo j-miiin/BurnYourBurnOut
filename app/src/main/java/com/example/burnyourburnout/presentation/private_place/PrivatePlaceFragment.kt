@@ -1,6 +1,7 @@
 package com.example.burnyourburnout.presentation.private_place
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.burnyourburnout.data.entity.DiaryEntity
 import com.example.burnyourburnout.databinding.FragmentPrivatePlaceBinding
 import com.example.burnyourburnout.ext.getLastOrNextMonthOrDay
 import com.example.burnyourburnout.ext.getTodayDate
@@ -23,8 +25,7 @@ internal class PrivatePlaceFragment : BaseFragment<CalendarViewModel, FragmentPr
     private var selectedMonth = 0
     private var selectedDay = 0
 
-    override val viewModel: CalendarViewModel
-        get() = CalendarViewModel()
+    override val viewModel: CalendarViewModel = CalendarViewModel()
 
     override fun getViewBinding(): FragmentPrivatePlaceBinding = FragmentPrivatePlaceBinding.inflate(layoutInflater)
 
@@ -41,11 +42,11 @@ internal class PrivatePlaceFragment : BaseFragment<CalendarViewModel, FragmentPr
         super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun observeData() {
+    override fun observeData() = viewModel.calendarStateLiveData.observe(this) {
         when(it) {
             is CalendarState.Uninitialized -> initViews()
             is CalendarState.Loading -> handleLoadingState()
-            is CalendarState.Success -> handleSuccessState()
+            is CalendarState.Success -> handleSuccessState(it)
             is CalendarState.Error -> handleErrorState()
         }
     }
@@ -94,17 +95,17 @@ internal class PrivatePlaceFragment : BaseFragment<CalendarViewModel, FragmentPr
         errorDescriptionTextView.toGone()
     }
 
-    private fun handleSuccessState() = with(binding) {
+    private fun handleSuccessState(state: CalendarState.Success) = with(binding) {
         progressBar.toGone()
         errorDescriptionTextView.toGone()
+        recyclerView.toVisible()
 
-        binding.recyclerView.toVisible()
-        binding.errorDescriptionTextView.toGone()
+        Log.d("feeling", "hi")
 
         (binding.recyclerView.adapter as CalendarAdapter).run {
             setDayList(
                 getDayList(),
-                dayRecordList,
+                state.diaryList as ArrayList<DiaryEntity>,
                 dayCellClickListener = {
 
                 }

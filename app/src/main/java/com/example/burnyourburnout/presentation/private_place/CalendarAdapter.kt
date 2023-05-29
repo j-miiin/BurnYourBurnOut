@@ -1,6 +1,7 @@
 package com.example.burnyourburnout.presentation.private_place
 
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,7 @@ import com.example.burnyourburnout.databinding.ViewholderCalendarCellBinding
 class CalendarAdapter: RecyclerView.Adapter<CalendarAdapter.CalendarCellViewHolder>() {
 
     var dayList = ArrayList<String>()
-    var dayRecordList = ArrayList<Int>()
+    var dayRecordList = ArrayList<DiaryEntity>()
     lateinit var dayCellClickListener: (DiaryEntity) -> Unit
 
     inner class CalendarCellViewHolder(
@@ -23,7 +24,8 @@ class CalendarAdapter: RecyclerView.Adapter<CalendarAdapter.CalendarCellViewHold
             if (position == 0 || position % 7 == 0) dayTextView.setTextColor(Color.parseColor("#E97777"))
             if (data != "") {
                 val idx = data.toInt()
-                setFeelingState(dayRecordList[idx-1])
+                setFeelingState(dayRecordList[idx-1].feeling)
+                Log.d("feeling", dayRecordList[idx-1].feeling.toString())
             }
         }
 
@@ -53,11 +55,11 @@ class CalendarAdapter: RecyclerView.Adapter<CalendarAdapter.CalendarCellViewHold
 
     fun setDayList(
         dayList: ArrayList<String>,
-        dayRecordList: ArrayList<Int>,
+        diaryRecordList: ArrayList<DiaryEntity>,
         dayCellClickListener: (DiaryEntity) -> Unit,
     ) {
         this.dayList = dayList
-        this.dayRecordList = dayRecordList
+        this.dayRecordList = diaryRecordList
         this.dayCellClickListener = dayCellClickListener
         notifyDataSetChanged()
     }

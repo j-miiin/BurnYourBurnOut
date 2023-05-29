@@ -9,7 +9,7 @@ sealed class CalendarState {
     object Loading: CalendarState()
 
     data class Success(
-        val diaryEntity: DiaryEntity
+        val diaryList: List<DiaryEntity>
     ): CalendarState()
 
     object Error: CalendarState()
