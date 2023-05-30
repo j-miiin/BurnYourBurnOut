@@ -18,4 +18,5 @@
     <string name="movie_chip">Movie</string>
     <string name="concert_chip">Concert</string>
     <string name="error_description">오류가 발생했어요!</string>
+    <string name="edit">Edit</string>
 </resources>
