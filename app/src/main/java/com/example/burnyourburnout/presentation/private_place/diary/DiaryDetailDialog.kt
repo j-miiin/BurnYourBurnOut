@@ -11,7 +11,7 @@ import android.widget.Toast
 import com.example.burnyourburnout.data.entity.DiaryEntity
 import com.example.burnyourburnout.databinding.DialogDiaryBinding
 
-class DiaryDialog(
+class DiaryDetailDialog(
     context: Context,
     private val diaryEntity: DiaryEntity,
     private val okCallBack: (DiaryEntity) -> Unit

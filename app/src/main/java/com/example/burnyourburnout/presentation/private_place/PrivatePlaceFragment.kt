@@ -107,7 +107,7 @@ internal class PrivatePlaceFragment : BaseFragment<CalendarViewModel, FragmentPr
                 getDayList(),
                 state.diaryList as ArrayList<DiaryEntity>,
                 dayCellClickListener = {
-
+                    //viewModel.updateDiaryEntity(it)
                 }
             )
         }
