@@ -9,6 +9,7 @@ import com.example.burnyourburnout.databinding.FragmentLobbyBinding
 
 class LobbyFragment : Fragment() {
 
+    private lateinit var auth: FirebaseAuth
     private lateinit var binding: FragmentLobbyBinding
 
     override fun onCreateView(
