@@ -34,14 +34,15 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:fontFamily="@font/jsongmyung"
-            android:text="@string/name"
+            android:text="@string/email"
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/nameEditText"
+            android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/jsongmyung"
+            android:inputType="textEmailAddress"
             android:textSize="20sp" />
 
         <TextView
