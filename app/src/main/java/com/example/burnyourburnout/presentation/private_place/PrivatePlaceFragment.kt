@@ -2,12 +2,9 @@ package com.example.burnyourburnout.presentation.private_place
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.burnyourburnout.data.entity.DiaryEntity
 import com.example.burnyourburnout.databinding.FragmentPrivatePlaceBinding
@@ -15,19 +12,15 @@ import com.example.burnyourburnout.ext.getLastOrNextMonthOrDay
 import com.example.burnyourburnout.ext.getTodayDate
 import com.example.burnyourburnout.ext.toGone
 import com.example.burnyourburnout.ext.toVisible
-import com.example.burnyourburnout.presentation.BaseFragment
+import org.koin.androidx.scope.ScopeFragment
 import java.util.*
 import kotlin.collections.ArrayList
 
-internal class PrivatePlaceFragment : BaseFragment<CalendarViewModel, FragmentPrivatePlaceBinding>() {
+internal class PrivatePlaceFragment : ScopeFragment(), CalendarContract.View {
 
     private var selectedYear = 0
     private var selectedMonth = 0
     private var selectedDay = 0
-
-    override val viewModel: CalendarViewModel = CalendarViewModel()
-
-    override fun getViewBinding(): FragmentPrivatePlaceBinding = FragmentPrivatePlaceBinding.inflate(layoutInflater)
 
     override fun onCreateView(
         inflater: LayoutInflater,

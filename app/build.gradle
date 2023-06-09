@@ -49,4 +49,12 @@ dependencies {
 
     implementation platform('com.google.firebase:firebase-bom:32.1.0')
     implementation 'com.google.firebase:firebase-auth-ktx'
+
+    // Coroutine
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.6.4'
+
+    // Koin
+    implementation "io.insert-koin:koin-core:3.3.2"
+    implementation "io.insert-koin:koin-android:3.3.2"
 }

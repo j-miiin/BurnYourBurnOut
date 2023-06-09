@@ -1,6 +1,5 @@
 package com.example.burnyourburnout.presentation.lobby
 
-import com.example.burnyourburnout.presentation.BaseViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
