@@ -12,15 +12,20 @@ import com.example.burnyourburnout.ext.getLastOrNextMonthOrDay
 import com.example.burnyourburnout.ext.getTodayDate
 import com.example.burnyourburnout.ext.toGone
 import com.example.burnyourburnout.ext.toVisible
+import org.koin.android.ext.android.inject
 import org.koin.androidx.scope.ScopeFragment
 import java.util.*
 import kotlin.collections.ArrayList
 
-internal class PrivatePlaceFragment : ScopeFragment(), CalendarContract.View {
+class PrivatePlaceFragment : ScopeFragment(), CalendarContract.View {
+
+    private lateinit var binding: FragmentPrivatePlaceBinding
 
     private var selectedYear = 0
     private var selectedMonth = 0
     private var selectedDay = 0
+
+    override val presenter: CalendarContract.Presenter by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,15 +38,8 @@ internal class PrivatePlaceFragment : ScopeFragment(), CalendarContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    }
-
-    override fun observeData() = viewModel.calendarStateLiveData.observe(this) {
-        when(it) {
-            is CalendarState.Uninitialized -> initViews()
-            is CalendarState.Loading -> handleLoadingState()
-            is CalendarState.Success -> handleSuccessState(it)
-            is CalendarState.Error -> handleErrorState()
-        }
+        initViews()
+        presenter.onViewCreated()
     }
 
     private fun initViews() = with(binding) {
@@ -62,7 +60,7 @@ internal class PrivatePlaceFragment : ScopeFragment(), CalendarContract.View {
             binding.yearTextView.text = "${selectedYear}년"
             binding.monthTextView.text = "${selectedMonth}월"
 
-//            presenter.fetchCalendarRecord(selectedYear, selectedMonth)
+            presenter.fetchCalendarRecord(selectedYear, selectedMonth)
         }
 
         nextMonthDayButton.setOnClickListener {
@@ -74,7 +72,7 @@ internal class PrivatePlaceFragment : ScopeFragment(), CalendarContract.View {
             binding.yearTextView.text = "${selectedYear}년"
             binding.monthTextView.text = "${selectedMonth}월"
 
-//            presenter.fetchCalendarRecord(selectedYear, selectedMonth)
+            presenter.fetchCalendarRecord(selectedYear, selectedMonth)
         }
 
         recyclerView.apply {
@@ -83,32 +81,33 @@ internal class PrivatePlaceFragment : ScopeFragment(), CalendarContract.View {
         }
     }
 
-    private fun handleLoadingState() = with(binding) {
-        progressBar.toVisible()
-        errorDescriptionTextView.toGone()
+    override fun showLoadingIndicator() {
+        binding.progressBar.toVisible()
     }
 
-    private fun handleSuccessState(state: CalendarState.Success) = with(binding) {
-        progressBar.toGone()
-        errorDescriptionTextView.toGone()
-        recyclerView.toVisible()
+    override fun hideLoadingIndicator() {
+        binding.progressBar.toGone()
+    }
 
-        Log.d("feeling", "hi")
+    override fun showErrorDescription(message: String) {
+        binding.recyclerView.toGone()
+        binding.errorDescriptionTextView.toVisible()
+        binding.errorDescriptionTextView.text = message
+    }
+
+    override fun showCalendarRecord(dayRecordList: ArrayList<DiaryEntity>) {
+        binding.recyclerView.toVisible()
+        binding.errorDescriptionTextView.toGone()
 
         (binding.recyclerView.adapter as CalendarAdapter).run {
             setDayList(
                 getDayList(),
-                state.diaryList as ArrayList<DiaryEntity>,
+                dayRecordList,
                 dayCellClickListener = {
-                    //viewModel.updateDiaryEntity(it)
+
                 }
             )
         }
-    }
-
-    private fun handleErrorState() = with(binding) {
-        progressBar.toVisible()
-        errorDescriptionTextView.toVisible()
     }
 
     private fun getDayList(): ArrayList<String> {
@@ -133,21 +132,5 @@ internal class PrivatePlaceFragment : ScopeFragment(), CalendarContract.View {
         }
 
         return dayList
-    }
-
-    private fun getMockList(): List<DiaryEntity> {
-        val calendar = Calendar.getInstance()
-        calendar.set(2023, 5-1, 1)
-        val lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
-
-        var id: Long = 0
-
-        var dayRecordList = ArrayList<DiaryEntity>()
-        for (i in 1..lastDay) {
-            dayRecordList.add(DiaryEntity(id, 2023, 5, i, "", (0..6).random()))
-            id += 1
-        }
-
-        return dayRecordList
     }
 }

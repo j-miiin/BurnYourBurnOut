@@ -1,5 +1,7 @@
 package com.example.burnyourburnout.presentation.private_place
 
+import com.example.burnyourburnout.data.entity.DiaryEntity
+import com.example.burnyourburnout.ext.getTodayDate
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -8,7 +10,7 @@ import kotlin.collections.ArrayList
 
 class CalendarPresenter(
     private val view: CalendarContract.View,
-    private val getDayRecordUseCase: GetDayRecordUseCase
+//    private val getDayRecordUseCase: GetDayRecordUseCase
 ): CalendarContract.Presenter {
 
     override val scope: CoroutineScope = MainScope()
@@ -26,12 +28,12 @@ class CalendarPresenter(
             calendar.set(year, month-1, 1)
             val lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH)
 
-            var dayRecordList = ArrayList<Int>()
-            for (i in 1..lastDay) {
-                var dayRecordEntity = getDayRecordUseCase(getSelectedDateString(year, month, i))
-                if (dayRecordEntity == null) dayRecordList.add(0)
-                else dayRecordList.add(dayRecordEntity.feeling)
-            }
+            var dayRecordList = ArrayList<DiaryEntity>()
+//            for (i in 1..lastDay) {
+//                var dayRecordEntity = getDayRecordUseCase(getSelectedDateString(year, month, i))
+//                if (dayRecordEntity == null) dayRecordList.add(0)
+//                else dayRecordList.add(dayRecordEntity.feeling)
+//            }
 
             view.showCalendarRecord(dayRecordList)
         }
