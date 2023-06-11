@@ -104,7 +104,7 @@ class PrivatePlaceFragment : ScopeFragment(), CalendarContract.View {
                 getDayList(),
                 dayRecordList,
                 dayCellClickListener = {
-
+                    presenter.updateDiary(it)
                 }
             )
         }

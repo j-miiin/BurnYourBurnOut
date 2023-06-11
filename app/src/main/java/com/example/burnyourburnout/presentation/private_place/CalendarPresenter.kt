@@ -5,6 +5,7 @@ import com.example.burnyourburnout.ext.getSelectedDateString
 import com.example.burnyourburnout.ext.getTodayDate
 import com.example.burnyourburnout.usecase.private_place.AddDiaryUseCase
 import com.example.burnyourburnout.usecase.private_place.GetDiaryUseCase
+import com.example.burnyourburnout.usecase.private_place.UpdateDiaryUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
@@ -14,7 +15,8 @@ import kotlin.collections.ArrayList
 class CalendarPresenter(
     private val view: CalendarContract.View,
     private val getDiaryUseCase: GetDiaryUseCase,
-    private val addDiaryUseCase: AddDiaryUseCase
+    private val addDiaryUseCase: AddDiaryUseCase,
+    private val updateDiaryUseCase: UpdateDiaryUseCase
 ): CalendarContract.Presenter {
 
     override val scope: CoroutineScope = MainScope()
@@ -51,6 +53,12 @@ class CalendarPresenter(
             }
 
             view.showCalendarRecord(diaryList)
+        }
+    }
+
+    override fun updateDiary(diaryEntity: DiaryEntity) {
+        scope.launch {
+            updateDiaryUseCase(diaryEntity)
         }
     }
 }

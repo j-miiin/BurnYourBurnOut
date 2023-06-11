@@ -20,5 +20,7 @@ interface CalendarContract {
     interface Presenter : BasePresenter {
 
         fun fetchCalendarRecord(year:Int, month: Int)
+
+        fun updateDiary(diaryEntity: DiaryEntity)
     }
 }

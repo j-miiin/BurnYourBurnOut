@@ -1,10 +1,11 @@
 package com.example.burnyourburnout.data.entity
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity
 data class DiaryEntity(
-    val id: String,
+    @PrimaryKey val id: String,
     val year: Int,
     val month: Int,
     val day: Int,
