@@ -48,8 +48,7 @@ class PrivatePlaceFragment : ScopeFragment(), CalendarContract.View {
         selectedMonth = dateInfo[1] + 1
         selectedDay = dateInfo[2]
 
-        yearTextView.text = "${selectedYear}년"
-        monthTextView.text = "${selectedMonth}월"
+        updateDate(selectedYear, selectedMonth)
 
         lastMonthButton.setOnClickListener {
             val lastMonthDateInfo = getLastOrNextMonthOrDay(selectedYear, selectedMonth-1, selectedDay, true, true)
@@ -57,9 +56,7 @@ class PrivatePlaceFragment : ScopeFragment(), CalendarContract.View {
             selectedMonth = lastMonthDateInfo[1] + 1
             selectedDay = lastMonthDateInfo[2]
 
-            binding.yearTextView.text = "${selectedYear}년"
-            binding.monthTextView.text = "${selectedMonth}월"
-
+            updateDate(selectedYear, selectedMonth)
             presenter.fetchCalendarRecord(selectedYear, selectedMonth)
         }
 
@@ -69,9 +66,7 @@ class PrivatePlaceFragment : ScopeFragment(), CalendarContract.View {
             selectedMonth = nextMonthDateInfo[1] + 1
             selectedDay = nextMonthDateInfo[2]
 
-            binding.yearTextView.text = "${selectedYear}년"
-            binding.monthTextView.text = "${selectedMonth}월"
-
+            updateDate(selectedYear, selectedMonth)
             presenter.fetchCalendarRecord(selectedYear, selectedMonth)
         }
 
@@ -79,6 +74,11 @@ class PrivatePlaceFragment : ScopeFragment(), CalendarContract.View {
             layoutManager = GridLayoutManager(context, 7)
             adapter = CalendarAdapter()
         }
+    }
+
+    private fun updateDate(selectedYear: Int, selectedMonth: Int) {
+        binding.yearTextView.text = "${selectedYear}년"
+        binding.monthTextView.text = "${selectedMonth}월"
     }
 
     override fun showLoadingIndicator() {
