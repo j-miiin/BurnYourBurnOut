@@ -4,7 +4,7 @@ import androidx.room.Entity
 
 @Entity
 data class DiaryEntity(
-    val id: Long,
+    val id: String,
     val year: Int,
     val month: Int,
     val day: Int,
